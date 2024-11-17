@@ -41,7 +41,7 @@ export function SignupForm() {
             <div className="flex items-center">
               <Label htmlFor="password">별명</Label>
             </div>
-            <Input id="text" type="text" required />
+            <Input id="username" type="text" required />
           </div>
           <Button type="submit" className="w-full">
             회원가입
