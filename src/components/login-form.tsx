@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 
-
 interface loginFormData {
   email : string,
   password : string
@@ -51,15 +50,19 @@ export function LoginForm() {
   }
 
   async function requestLogin(loginFormData:loginFormData) {
-    const response = await fetch('APilogin',{
+    const response = await fetch('/api/users/login',{
       method:'POST',
-      body : JSON.stringify(loginFormData)
+      cache :'no-store',
+    
+      body : JSON.stringify(loginFormData),
+      headers: {
+        'Content-Type': 'application/json',
+      }
     });
-    const responseJson = await response.json();
-    console.log(responseJson);
+    return response;
   }
 
-  const handleSubmit = (e : React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const {email,password} = loginFormData;
     const nowErrorData:loginErrorData = {emailError:null, passwordError:null, commonError:null};
@@ -71,10 +74,13 @@ export function LoginForm() {
     }
     
     setErrorData(nowErrorData);
-    if (!errorData.passwordError || !errorData.emailError ) {
+    if (nowErrorData.passwordError || nowErrorData.emailError ) {
       return;
     }
-    requestLogin(loginFormData);
+    const loginResponse = await requestLogin(loginFormData);
+    if (loginResponse.status === 401) {
+      setErrorData({...nowErrorData, commonError:'INVALID'});
+    } 
   }
   return (
     <Card className="mx-auto max-w-sm">
@@ -93,7 +99,7 @@ export function LoginForm() {
               type="email"
               placeholder="example@example.com"
               onChange={onEmailInputChange}
-              className={errorData.emailError ? 'focus-visible:ring-red-600 border-red-600' : ''}
+              className={(errorData.emailError || errorData.commonError) ? 'focus-visible:ring-red-600 border-red-600' : ''}
               required
             />
           </div>
@@ -104,7 +110,7 @@ export function LoginForm() {
                 비밀번호 찾기
               </Link>
             </div>
-            <Input id="password" type="password" onChange={onPasswordInputChange} className={errorData.passwordError ? 'focus-visible:ring-red-600 border-red-600' : ''} required />
+            <Input id="password" type="password" onChange={onPasswordInputChange} className={(errorData.passwordError || errorData.commonError) ? 'focus-visible:ring-red-600 border-red-600' : ''} required />
           </div>
           { errorText ? <p className="text-xs text-red-600">{errorText}</p> : ''}
           <Button type="submit" className="w-full" onClick={handleSubmit}>
