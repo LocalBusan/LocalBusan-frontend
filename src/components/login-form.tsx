@@ -53,8 +53,10 @@ export function LoginForm() {
     const response = await fetch('/api/users/login',{
       method:'POST',
       cache :'no-store',
-    
-      body : JSON.stringify(loginFormData),
+      body : JSON.stringify({
+        username : loginFormData.email,
+        password : loginFormData.password
+      }),
       headers: {
         'Content-Type': 'application/json',
       }
@@ -78,7 +80,7 @@ export function LoginForm() {
       return;
     }
     const loginResponse = await requestLogin(loginFormData);
-    if (loginResponse.status === 401) {
+    if (loginResponse.status !== 200) {
       setErrorData({...nowErrorData, commonError:'INVALID'});
     } 
   }
