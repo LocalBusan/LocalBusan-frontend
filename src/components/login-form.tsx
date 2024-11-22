@@ -57,6 +57,7 @@ export function LoginForm() {
         username : loginFormData.email,
         password : loginFormData.password
       }),
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       }
@@ -80,9 +81,9 @@ export function LoginForm() {
       return;
     }
     const loginResponse = await requestLogin(loginFormData);
-    if (loginResponse.status !== 200) {
+    if (loginResponse.status !== 303) {
       setErrorData({...nowErrorData, commonError:'INVALID'});
-    } 
+    }
   }
   return (
     <Card className="mx-auto max-w-sm">
