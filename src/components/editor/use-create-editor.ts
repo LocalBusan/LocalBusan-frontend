@@ -3,6 +3,11 @@
 import { withProps } from '@udecode/cn';
 import { BasicElementsPlugin } from '@udecode/plate-basic-elements/react';
 import {
+  FontBackgroundColorPlugin,
+  FontColorPlugin,
+} from '@udecode/plate-font/react';
+
+import {
   BasicMarksPlugin,
   BoldPlugin,
   ItalicPlugin,
@@ -15,7 +20,17 @@ import {
   PlateLeaf,
   usePlateEditor,
 } from '@udecode/plate-common/react';
-
+import {MarkdownPlugin} from '@udecode/plate-markdown'
+import { linkPlugin } from './plugins/link-plugin';
+import { FilePlugin, ImagePlugin, MediaEmbedPlugin, PlaceholderPlugin, VideoPlugin } from '@udecode/plate-media/react';
+import { LinkPlugin } from '@udecode/plate-link/react';
+import { AlignPlugin } from '@udecode/plate-alignment/react';
+import { TogglePlugin } from '@udecode/plate-toggle/react';
+import { IndentListPlugin } from '@udecode/plate-indent-list/react';
+import { MediaUploadToast } from '../plate-ui/media-upload-toast';
+import { SelectOnBackspacePlugin } from '@udecode/plate-select';
+import { ImageElement } from '../plate-ui/image-element';
+import { CaptionPlugin } from '@udecode/plate-caption/react';
 export const useCreateEditor = () => {
   return usePlateEditor({
     override: {
@@ -45,40 +60,28 @@ export const useCreateEditor = () => {
           as: 'h3',
           className: 'mb-4 mt-6 text-xl font-semibold tracking-tight',
         }),
+        [LinkPlugin.key]: withProps(PlateElement,{as:'a', className:'underline'}),
+        [ImagePlugin.key] : ImageElement,
       },
+
     },
-    plugins: [BasicElementsPlugin, BasicMarksPlugin],
+    plugins: [BasicElementsPlugin, BasicMarksPlugin ,
+       linkPlugin,FontBackgroundColorPlugin, FontColorPlugin, 
+        MediaEmbedPlugin, VideoPlugin, ImagePlugin,AlignPlugin,TogglePlugin, IndentListPlugin,FilePlugin,CaptionPlugin, MarkdownPlugin
+        ,PlaceholderPlugin.configure({
+          options: { disableEmptyPlaceholder: true },
+          render: { afterEditable: MediaUploadToast },
+        }),
+        SelectOnBackspacePlugin.configure({
+          options: {
+            query: {
+              allow: [ImagePlugin.key, VideoPlugin.key, FilePlugin.key, MediaEmbedPlugin.key],
+            },
+          },
+        }),
+
+      ],
     value: [
-      {
-        children: [{ text: 'Basic Editor' }],
-        type: 'h1',
-      },
-      {
-        children: [{ text: 'Heading 2' }],
-        type: 'h2',
-      },
-      {
-        children: [{ text: 'Heading 3' }],
-        type: 'h3',
-      },
-      {
-        children: [{ text: 'This is a blockquote element' }],
-        type: 'blockquote',
-      },
-      {
-        children: [
-          { text: 'Basic marks:' },
-          { bold: true, text: 'bold' },
-          { text: ',' },
-          { italic: true, text: 'italic' },
-          { text: ',' },
-          { text: 'underline', underline: true },
-          { text: ',' },
-          { strikethrough: true, text: 'strikethrough' },
-          { text: '.' },
-        ],
-        type: ParagraphPlugin.key,
-      },
     ],
   });
 };

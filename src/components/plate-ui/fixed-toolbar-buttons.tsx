@@ -41,7 +41,6 @@ import { CommentToolbarButton } from './comment-toolbar-button';
 import { EmojiDropdownMenu } from './emoji-dropdown-menu';
 import { RedoToolbarButton, UndoToolbarButton } from './history-toolbar-button';
 import { IndentListToolbarButton } from './indent-list-toolbar-button';
-import { IndentTodoToolbarButton } from './indent-todo-toolbar-button';
 import { IndentToolbarButton } from './indent-toolbar-button';
 import { InsertDropdownMenu } from './insert-dropdown-menu';
 import { LineHeightDropdownMenu } from './line-height-dropdown-menu';
@@ -72,45 +71,41 @@ export function FixedToolbarButtons() {
           </ToolbarGroup>
 
           <ToolbarGroup>
-            <MarkToolbarButton nodeType={BoldPlugin.key} tooltip='Bold (⌘+B)'>
+            <MarkToolbarButton nodeType={BoldPlugin.key} tooltip='굵게'>
               <BoldIcon />
             </MarkToolbarButton>
 
             <MarkToolbarButton
               nodeType={ItalicPlugin.key}
-              tooltip='Italic (⌘+I)'
+              tooltip='기울이기'
             >
               <ItalicIcon />
             </MarkToolbarButton>
 
             <MarkToolbarButton
               nodeType={UnderlinePlugin.key}
-              tooltip='Underline (⌘+U)'
+              tooltip='밑줄'
             >
               <UnderlineIcon />
             </MarkToolbarButton>
 
             <MarkToolbarButton
               nodeType={StrikethroughPlugin.key}
-              tooltip='Strikethrough (⌘+⇧+M)'
+              tooltip='취소선'
             >
               <StrikethroughIcon />
             </MarkToolbarButton>
 
-            <MarkToolbarButton nodeType={CodePlugin.key} tooltip='Code (⌘+E)'>
-              <Code2Icon />
-            </MarkToolbarButton>
-
             <ColorDropdownMenu
               nodeType={FontColorPlugin.key}
-              tooltip='Text color'
+              tooltip='글자 색'
             >
               <BaselineIcon />
             </ColorDropdownMenu>
 
             <ColorDropdownMenu
               nodeType={FontBackgroundColorPlugin.key}
-              tooltip='Background color'
+              tooltip='배경 색'
             >
               <PaintBucketIcon />
             </ColorDropdownMenu>
@@ -121,47 +116,21 @@ export function FixedToolbarButtons() {
 
             <IndentListToolbarButton nodeType={ListStyleType.Disc} />
             <IndentListToolbarButton nodeType={ListStyleType.Decimal} />
-            <IndentTodoToolbarButton />
-            <ToggleToolbarButton />
           </ToolbarGroup>
 
           <ToolbarGroup>
             <LinkToolbarButton />
-            <TableDropdownMenu />
-            <EmojiDropdownMenu />
           </ToolbarGroup>
 
           <ToolbarGroup>
             <MediaToolbarButton nodeType={ImagePlugin.key} />
-            <MediaToolbarButton nodeType={VideoPlugin.key} />
-            <MediaToolbarButton nodeType={AudioPlugin.key} />
-            <MediaToolbarButton nodeType={FilePlugin.key} />
           </ToolbarGroup>
 
-          <ToolbarGroup>
-            <LineHeightDropdownMenu />
-            <OutdentToolbarButton />
-            <IndentToolbarButton />
-          </ToolbarGroup>
 
-          <ToolbarGroup>
-            <MoreDropdownMenu />
-          </ToolbarGroup>
         </>
       )}
 
-      <div className='grow' />
 
-      <ToolbarGroup>
-        <MarkToolbarButton nodeType={HighlightPlugin.key} tooltip='Highlight'>
-          <HighlighterIcon />
-        </MarkToolbarButton>
-        <CommentToolbarButton />
-      </ToolbarGroup>
-
-      <ToolbarGroup>
-        <ModeDropdownMenu />
-      </ToolbarGroup>
     </div>
   );
 }

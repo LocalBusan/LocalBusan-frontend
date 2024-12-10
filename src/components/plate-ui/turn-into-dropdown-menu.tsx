@@ -48,67 +48,44 @@ const turnIntoItems = [
   {
     icon: <PilcrowIcon />,
     keywords: ['paragraph'],
-    label: 'Text',
+    label: '본문',
     value: ParagraphPlugin.key,
   },
   {
     icon: <Heading1Icon />,
     keywords: ['title', 'h1'],
-    label: 'Heading 1',
+    label: '제목 1',
     value: HEADING_KEYS.h1,
   },
   {
     icon: <Heading2Icon />,
     keywords: ['subtitle', 'h2'],
-    label: 'Heading 2',
+    label: '제목 2',
     value: HEADING_KEYS.h2,
   },
   {
     icon: <Heading3Icon />,
     keywords: ['subtitle', 'h3'],
-    label: 'Heading 3',
+    label: '제목 3',
     value: HEADING_KEYS.h3,
   },
   {
     icon: <ListIcon />,
     keywords: ['unordered', 'ul', '-'],
-    label: 'Bulleted list',
+    label: '글머리 목록',
     value: ListStyleType.Disc,
   },
   {
     icon: <ListOrderedIcon />,
     keywords: ['ordered', 'ol', '1'],
-    label: 'Numbered list',
+    label: '숫자 목록',
     value: ListStyleType.Decimal,
-  },
-  {
-    icon: <SquareIcon />,
-    keywords: ['checklist', 'task', 'checkbox', '[]'],
-    label: 'To-do list',
-    value: INDENT_LIST_KEYS.todo,
-  },
-  {
-    icon: <ChevronRightIcon />,
-    keywords: ['collapsible', 'expandable'],
-    label: 'Toggle list',
-    value: TogglePlugin.key,
-  },
-  {
-    icon: <FileCodeIcon />,
-    keywords: ['```'],
-    label: 'Code',
-    value: CodeBlockPlugin.key,
   },
   {
     icon: <QuoteIcon />,
     keywords: ['citation', 'blockquote', '>'],
-    label: 'Quote',
+    label: '인용',
     value: BlockquotePlugin.key,
-  },
-  {
-    icon: <Columns3Icon />,
-    label: '3 columns',
-    value: 'action_three_columns',
   },
 ];
 
@@ -131,7 +108,7 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={openState.open} tooltip='Turn into' isDropdown>
+        <ToolbarButton pressed={openState.open} tooltip='~로 바꾸기' isDropdown>
           {selectedItem.label}
         </ToolbarButton>
       </DropdownMenuTrigger>
@@ -146,7 +123,7 @@ export function TurnIntoDropdownMenu(props: DropdownMenuProps) {
             setBlockType(editor, type);
             focusEditor(editor);
           }}
-          label='Turn into'
+          label='~로 바꾸기'
         >
           {turnIntoItems.map(({ icon, label, value: itemValue }) => (
             <DropdownMenuRadioItem

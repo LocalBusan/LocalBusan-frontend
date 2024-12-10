@@ -38,7 +38,7 @@ export const ColorPickerContent = withRef<
   ) => {
     return (
       <div ref={ref} className={cn('flex flex-col', className)} {...props}>
-        <DropdownMenuGroup label='Custom Colors'>
+        <DropdownMenuGroup label='사용자 정의 색상'>
           <ColorCustom
             color={color}
             className='px-2'
@@ -48,7 +48,7 @@ export const ColorPickerContent = withRef<
             updateCustomColor={updateCustomColor}
           />
         </DropdownMenuGroup>
-        <DropdownMenuGroup label='Default Colors'>
+        <DropdownMenuGroup label='기본 색상'>
           <ColorDropdownMenuItems
             color={color}
             className='px-2'

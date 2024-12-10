@@ -75,46 +75,41 @@ interface Item {
 
 const groups: Group[] = [
   {
-    group: 'Basic blocks',
+    group: '기본 블럭',
     items: [
       {
         icon: <PilcrowIcon />,
-        label: 'Paragraph',
+        label: '본문',
         value: ParagraphPlugin.key,
       },
       {
         icon: <Heading1Icon />,
-        label: 'Heading 1',
+        label: '제목 1',
         value: HEADING_KEYS.h1,
       },
       {
         icon: <Heading2Icon />,
-        label: 'Heading 2',
+        label: '제목 2',
         value: HEADING_KEYS.h2,
       },
       {
         icon: <Heading3Icon />,
-        label: 'Heading 3',
+        label: '제목 3',
         value: HEADING_KEYS.h3,
       },
       {
-        icon: <TableIcon />,
-        label: 'Table',
-        value: TablePlugin.key,
-      },
-      {
-        icon: <FileCodeIcon />,
-        label: 'Code',
-        value: CodeBlockPlugin.key,
+        icon: <Link2Icon />,
+        label: '링크',
+        value: LinkPlugin.key,
       },
       {
         icon: <QuoteIcon />,
-        label: 'Quote',
+        label: '인용',
         value: BlockquotePlugin.key,
       },
       {
         icon: <MinusIcon />,
-        label: 'Divider',
+        label: '구분자',
         value: HorizontalRulePlugin.key,
       },
     ].map((item) => ({
@@ -125,27 +120,17 @@ const groups: Group[] = [
     })),
   },
   {
-    group: 'Lists',
+    group: '목록',
     items: [
       {
         icon: <ListIcon />,
-        label: 'Bulleted list',
+        label: '글머리 목록',
         value: ListStyleType.Disc,
       },
       {
         icon: <ListOrderedIcon />,
-        label: 'Numbered list',
+        label: '숫자 목록',
         value: ListStyleType.Decimal,
-      },
-      {
-        icon: <SquareIcon />,
-        label: 'To-do list',
-        value: INDENT_LIST_KEYS.todo,
-      },
-      {
-        icon: <ChevronRightIcon />,
-        label: 'Toggle list',
-        value: TogglePlugin.key,
       },
     ].map((item) => ({
       ...item,
@@ -155,68 +140,22 @@ const groups: Group[] = [
     })),
   },
   {
-    group: 'Media',
+    group: '미디어',
     items: [
       {
         icon: <ImageIcon />,
-        label: 'Image',
+        label: '이미지',
         value: ImagePlugin.key,
       },
       {
         icon: <FilmIcon />,
-        label: 'Embed',
+        label: '영상',
         value: MediaEmbedPlugin.key,
-      },
-      {
-        icon: <PenToolIcon />,
-        label: 'Excalidraw',
-        value: ExcalidrawPlugin.key,
-      },
+      }
     ].map((item) => ({
       ...item,
       onSelect: (editor, value) => {
         insertBlock(editor, value);
-      },
-    })),
-  },
-  {
-    group: 'Advanced blocks',
-    items: [
-      {
-        icon: <TableOfContentsIcon />,
-        label: 'Table of contents',
-        value: TocPlugin.key,
-      },
-      {
-        icon: <Columns3Icon />,
-        label: '3 columns',
-        value: 'action_three_columns',
-      },
-    ].map((item) => ({
-      ...item,
-      onSelect: (editor, value) => {
-        insertBlock(editor, value);
-      },
-    })),
-  },
-  {
-    group: 'Inline',
-    items: [
-      {
-        icon: <Link2Icon />,
-        label: 'Link',
-        value: LinkPlugin.key,
-      },
-      {
-        focusEditor: true,
-        icon: <CalendarIcon />,
-        label: 'Date',
-        value: DatePlugin.key,
-      },
-    ].map((item) => ({
-      ...item,
-      onSelect: (editor, value) => {
-        insertInlineElement(editor, value);
       },
     })),
   },
@@ -229,7 +168,7 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownMenu modal={false} {...openState} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={openState.open} tooltip='Insert' isDropdown>
+        <ToolbarButton pressed={openState.open} tooltip='추가하기' isDropdown>
           <PlusIcon />
         </ToolbarButton>
       </DropdownMenuTrigger>

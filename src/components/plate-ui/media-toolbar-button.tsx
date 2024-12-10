@@ -56,29 +56,17 @@ const MEDIA_CONFIG: Record<
     tooltip: string;
   }
 > = {
-  [AudioPlugin.key]: {
-    accept: ['audio/*'],
-    icon: <AudioLinesIcon className='size-4' />,
-    title: 'Insert Audio',
-    tooltip: 'Audio',
-  },
-  [FilePlugin.key]: {
-    accept: ['*'],
-    icon: <FileUpIcon className='size-4' />,
-    title: 'Insert File',
-    tooltip: 'File',
-  },
   [ImagePlugin.key]: {
     accept: ['image/*'],
     icon: <ImageIcon className='size-4' />,
-    title: 'Insert Image',
-    tooltip: 'Image',
+    title: '이미지 삽입',
+    tooltip: '이미지',
   },
   [VideoPlugin.key]: {
     accept: ['video/*'],
     icon: <FilmIcon className='size-4' />,
-    title: 'Insert Video',
-    tooltip: 'Video',
+    title: '비디오 삽입',
+    tooltip: '비디오',
   },
 };
 
@@ -97,7 +85,17 @@ export function MediaToolbarButton({
     accept: currentConfig.accept,
     multiple: true,
     onFilesSelected: ({ plainFiles: updatedFiles }) => {
-      (editor as any).tf.insert.media(updatedFiles);
+      updatedFiles.map((file : File) => {
+      const url = URL.createObjectURL(file);
+      console.log(url);
+      insertNodes(editor, {
+        children: [{ text: '' }],
+        name: nodeType === FilePlugin.key ? url.split('/').pop() : undefined,
+        type: nodeType,
+        url,
+      });
+        
+      })
     },
   });
 
@@ -133,11 +131,11 @@ export function MediaToolbarButton({
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={() => openFilePicker()}>
                 {currentConfig.icon}
-                Upload from computer
+                내 컴퓨터에서 업로드
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setDialogOpen(true)}>
                 <LinkIcon />
-                Insert via URL
+                URL로 삽입
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
@@ -176,7 +174,6 @@ function MediaUrlDialogContent({
 
   const embedMedia = useCallback(() => {
     if (!isUrl(url)) return toast.error('Invalid URL');
-
     setOpen(false);
     insertNodes(editor, {
       children: [{ text: '' }],
@@ -209,14 +206,14 @@ function MediaUrlDialogContent({
       </AlertDialogDescription>
 
       <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
+        <AlertDialogCancel>취소</AlertDialogCancel>
         <AlertDialogAction
           onClick={(e) => {
             e.preventDefault();
             embedMedia();
           }}
         >
-          Accept
+          확인
         </AlertDialogAction>
       </AlertDialogFooter>
     </>

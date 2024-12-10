@@ -19,11 +19,11 @@ export const LinkToolbarButton = withRef<typeof ToolbarButton>((rest, ref) => {
     <ToolbarButton
       ref={ref}
       data-plate-focus
-      tooltip='Link'
+      tooltip='링크'
       {...props}
       {...rest}
     >
-      <Link />
+      <Link className='underline'/>
     </ToolbarButton>
   );
 });
