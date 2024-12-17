@@ -20,6 +20,8 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { redirect } from "next/navigation";
+
 
 
 interface signupFormData {
@@ -85,7 +87,7 @@ export function SignupForm() {
   }
   
   async function requestSignup(signupFormData:signupFormData) {
-    const response = await fetch('/api/users',{
+    const response = await fetch('http://3.34.225.212:8080/api/users',{
       method:'POST',
       cache :'no-store',
       body : JSON.stringify({
@@ -121,6 +123,9 @@ export function SignupForm() {
     const loginResponse = await requestSignup(signupFormData);
     if (loginResponse.status !== 201) {
       setErrorData({...nowErrorData, commonError:'NETWORK'});
+    }
+    else {
+      redirect('/login');
     }
      
   }
