@@ -18,7 +18,7 @@ regionTextArray.unshift('전체');
 
 export default function Home() {
   const requestArticles = async () => {
-    const response = await fetch('http://3.34.225.212:8080/api/boards', {
+    const response = await fetch('/api/boards', {
       method : 'GET'
     });
     const fetchedJson = await (response.json());

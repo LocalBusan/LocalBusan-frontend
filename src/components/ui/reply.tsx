@@ -20,7 +20,7 @@ export default function Reply({articleId}:ArticleProps) {
 
     const updateReplyData = async () => {
         if (clickCount > 0 && nowReplyText !== '') {
-            await fetch(`http://3.34.225.212:8080/api/boards/${articleId}/comments`,{
+            await fetch(`/api/boards/${articleId}/comments`,{
                 method:'POST',
                 headers : {
                     'Content-Type' : 'application/json',
@@ -32,7 +32,7 @@ export default function Reply({articleId}:ArticleProps) {
                
             }) 
         }
-        const replyResponse = await fetch(`http://3.34.225.212:8080/api/boards/${articleId}/comments`,{method : 'GET',
+        const replyResponse = await fetch(`/api/boards/${articleId}/comments`,{method : 'GET',
             headers: {
             'Content-Type' : 'application/json'
         },
@@ -44,15 +44,23 @@ export default function Reply({articleId}:ArticleProps) {
     const [replyDataArray,setReplyData] = useState([]);
     const [nowReplyText, setReplyText] = useState('');
     const [clickCount, setClickCount] = useState(0);
+    const [deleteCount, setDeleteCount] = useState(0);
     const onClickWriteButton = async () => {
         setClickCount(clickCount+1);
+    }
+    const onClickeDeleteButton = async (reply_id:number) => {
+        await fetch(`/api/boards/${articleId}/comments/${reply_id}`,{
+            method:'DELETE',
+            credentials: 'include',
+        }) 
+        setDeleteCount(deleteCount + 1);
     }
     const onTextareaChange = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
         setReplyText(e.currentTarget.value);
     }
     useEffect(
         ()=>{updateReplyData()},
-        [clickCount]
+        [clickCount,deleteCount]
     );
 
     return (
@@ -68,7 +76,7 @@ export default function Reply({articleId}:ArticleProps) {
                                 {reply.content}
                             </div>
                             <div className="flex justify-end">
-                                <a className="text-red-500 hover:underline hover:cursor-pointer">삭제</a>
+                                <a onClick={()=>{onClickeDeleteButton(reply.reply_id)}} className="text-red-500 hover:underline hover:cursor-pointer">삭제</a>
                             </div>
                         </div>)
                     })
