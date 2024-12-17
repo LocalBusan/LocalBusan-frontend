@@ -37,7 +37,7 @@ interface articleData {
   regionId : number
 }
 export default function Page() {
-  const editor = useCreateEditor();
+  const editor:any = useCreateEditor();
   const onRegionInputChange = (value : string) => {
     setArticleData({...articleData, regionId:parseInt(value)});  
   }
@@ -50,7 +50,7 @@ export default function Page() {
   const onSubtitleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setArticleData({...articleData, subtitle:e.currentTarget.value});  
   }
-  const onEditorChange = () => {
+  const onEditorChange = () => { 
     setArticleData({...articleData, content : editor.api.markdown.serialize()})
   }
   const onClickWriteButton = () => {
