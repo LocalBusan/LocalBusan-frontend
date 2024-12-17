@@ -124,7 +124,7 @@ export default function Page() {
         </div>
       </div>
       <div className='h-6/12 w-6/12 m-8 border-2' data-registry='plate'>
-        <PlateEditor onChange={onEditorChange} editor={editor} children={undefined}/>
+        <PlateEditor onChange={onEditorChange} editor={editor}>{undefined}</PlateEditor>
       </div>
     </div>
   );

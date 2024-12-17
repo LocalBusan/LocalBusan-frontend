@@ -3,10 +3,8 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Link from 'next/link';
 import Markdown from 'react-markdown';
 import Reply from "@/components/ui/reply";
-import { cookies } from "next/headers";
 export default async function Article({params}:{params:Promise<{id: string}>}) {
 
-    const cookieStore = await cookies();
     const articleId = (await params).id;
     const response = await fetch(`http://3.34.225.212:8080/api/boards/${articleId}`,{method : 'GET',headers: {
         'Content-Type' : 'application/json'
@@ -38,8 +36,8 @@ export default async function Article({params}:{params:Promise<{id: string}>}) {
                     h3(props) {return <h3 className="text-lg font-bold">{props.children}</h3>},
                     a({children, ...rest}) {return <a className="underline" {...rest}>{children}</a>},
                     img({...rest}) {return <span className="flex justify-center"><img {...rest}/></span>},
-                    ul({children, ...rest}) {return <ul className="list-disc">{children}</ul>},
-                    ol({children, ...rest}) {return <ol className="list-decimal">{children}</ol>}
+                    ul({children}) {return <ul className="list-disc">{children}</ul>},
+                    ol({children}) {return <ol className="list-decimal">{children}</ol>}
                 }}>{fetchedJson.content}</Markdown>
             </div>
             <div className="flex flex-col gap-y-3 w-[700px] py-3"> 

@@ -5,18 +5,8 @@ import Link  from "next/link";
 import { useState, useEffect } from "react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {useCookies} from 'next-client-cookies';
-interface regionData {
-  name : string,
-  value : number,
-  isSelected : boolean | null
-}
 
 
-const categoryEmoji = {
-  '맛집' : '🍔',
-  '문화' : '🎫',
-  '피플' : '💬'
-}
 
 const regionTextArray = [
   '강서구','북구','동구','서구','남구','사하구',
