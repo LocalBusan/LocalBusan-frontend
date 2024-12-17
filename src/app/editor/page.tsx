@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/plate-ui/input';
 import { useCreateEditor } from '@/components/editor/use-create-editor';
+import { redirect } from 'next/navigation';
 const regionArray:Array<regionData> = [
   '강서구','북구','동구','서구','남구','사하구',
   '해운대구','금정구','동래구','중구','수영구',
@@ -53,8 +54,26 @@ export default function Page() {
   const onEditorChange = () => { 
     setArticleData({...articleData, content : editor.api.markdown.serialize()})
   }
-  const onClickWriteButton = () => {
-    console.log(articleData);
+  const onClickWriteButton = async () => {
+    const response = await fetch('/api/boards',{
+      method : 'POST',
+      credentials : 'include',
+      body : JSON.stringify({
+        user_id : 1,
+        region_id : articleData.regionId,
+        category_id : articleData.categoryId,
+        title : articleData.title,
+        subtitle : articleData.subtitle,
+        thumbnail_url : articleData.thumbnail,
+        content : articleData.content 
+      }),
+      headers : {
+        'Content-Type' : 'application/json'
+      }
+    })
+    if (response.ok) {
+      redirect('/');
+    }
   }
   const [articleData,setArticleData] = useState<articleData>({title:'', subtitle:'',thumbnail:'',content:'',regionId:0,categoryId:0});
   return (
