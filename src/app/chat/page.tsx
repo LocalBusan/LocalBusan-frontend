@@ -56,7 +56,18 @@ export default function Page() {
                 <div className="flex flex-col gap-y-4">
                     {
                         replyDataArray.map((reply : ReplyData, index : number) => {
-                            return (
+                            if (reply.nickname === '로컬부산 챗봇') {
+                            return (    
+                            <div key={index} className="flex px-3 flex-col justify-center h-[100px]  bg-white rounded stroke-black">
+                                <div>
+                                    <h3 className="text-lg font-bold">{reply.nickname}</h3>
+                                    {reply.content}
+                                </div>
+                                <div className="flex justify-end">
+                                </div>
+                            </div>)
+                            }
+                            return (    
                             <div key={index} className="flex px-3 flex-col justify-center h-[100px]  bg-gray-100 rounded">
                                 <div>
                                     <h3 className="text-lg font-bold">{reply.nickname}</h3>
