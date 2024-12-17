@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { redirect } from "next/navigation";
 
 
 interface loginFormData {
@@ -50,9 +51,8 @@ export function LoginForm() {
   }
 
   async function requestLogin(loginFormData:loginFormData) {
-    const response = await fetch('/api/users/login',{
+    const response = await fetch('http://3.34.225.212:8080/api/users/login',{
       method:'POST',
-      cache :'no-store',
       body : JSON.stringify({
         username : loginFormData.email,
         password : loginFormData.password
@@ -81,8 +81,10 @@ export function LoginForm() {
       return;
     }
     const loginResponse = await requestLogin(loginFormData);
-    if (loginResponse.status !== 303) {
+    if (!loginResponse.redirected) {
       setErrorData({...nowErrorData, commonError:'INVALID'});
+    } else { 
+      redirect('/');
     }
   }
   return (
@@ -118,9 +120,6 @@ export function LoginForm() {
           { errorText ? <p className="text-xs text-red-600">{errorText}</p> : ''}
           <Button type="submit" className="w-full" onClick={handleSubmit}>
             로그인
-          </Button>
-          <Button variant="outline" className="w-full" >
-            Google 계정으로 로그인
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
