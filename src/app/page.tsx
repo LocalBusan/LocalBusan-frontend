@@ -4,7 +4,6 @@ import { Logo } from "@/components/ui/logo";
 import Link  from "next/link";
 import { useState, useEffect } from "react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import {useCookies} from 'next-client-cookies';
 
 
 
@@ -26,8 +25,6 @@ export default function Home() {
     setArticleState(fetchedJson);
   }
   const [articleState, setArticleState] = useState([]); 
-  const cookies = useCookies(); 
-  console.log(cookies.get('jwt'));
   const [regionState, setRegionState] = useState(
     regionTextArray.map((regionName,index)=>{
     return {
@@ -105,7 +102,7 @@ export default function Home() {
   return (
     <>
     <div className="flex justify-end gap-x-3 h-10 px-8 items-center">
-        {!cookies.get('jwt') ? <Link href="/login">로그인</Link> : <Link href="/login">로그아웃</Link> }
+        {true ? <Link href="/login">로그인</Link> : <Link href="/login">로그아웃</Link> }
         <Link href="/signup">회원가입</Link>
     </div>
     <div className="flex flex-col justify-center gap-y-10 items-center">
