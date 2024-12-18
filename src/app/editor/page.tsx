@@ -64,7 +64,7 @@ export default function Page() {
         category_id : articleData.categoryId,
         title : articleData.title,
         subtitle : articleData.subtitle,
-        thumbnail_url : articleData.thumbnail,
+        thumbnail_url : 'https://local-busan-frontend.vercel.app/alt_image.png',
         content : articleData.content 
       }),
       headers : {
