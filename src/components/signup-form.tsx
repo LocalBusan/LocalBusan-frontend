@@ -87,7 +87,7 @@ export function SignupForm() {
   }
   
   async function requestSignup(signupFormData:signupFormData) {
-    const response = await fetch('http://3.34.225.212:8080/api/users',{
+    const response = await fetch('/api/users',{
       method:'POST',
       cache :'no-store',
       body : JSON.stringify({

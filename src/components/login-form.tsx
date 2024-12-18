@@ -51,7 +51,7 @@ export function LoginForm() {
   }
 
   async function requestLogin(loginFormData:loginFormData) {
-    const response = await fetch('http://3.34.225.212:8080/api/users/login',{
+    const response = await fetch('/api/users/login',{
       method:'POST',
       body : JSON.stringify({
         username : loginFormData.email,
