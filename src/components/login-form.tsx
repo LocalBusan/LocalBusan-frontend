@@ -84,7 +84,7 @@ export function LoginForm() {
     if (!loginResponse.redirected) {
       setErrorData({...nowErrorData, commonError:'INVALID'});
     } else { 
-      redirect('/');
+      redirect('/main');
     }
   }
   return (
