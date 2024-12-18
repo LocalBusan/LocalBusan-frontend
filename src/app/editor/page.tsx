@@ -43,7 +43,6 @@ export default function Page() {
     setArticleData({...articleData, regionId:parseInt(value)});  
   }
   const onCategoryInputChange = (value : string) => {
-    console.log(value);
     setArticleData({...articleData, categoryId:parseInt(value)});  
   }
   const onTitleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +64,7 @@ export default function Page() {
         category_id : articleData.categoryId,
         title : articleData.title,
         subtitle : articleData.subtitle,
-        thumbnail_url : 'https://local-busan-frontend.vercel.app/alt_image.png',
+        thumbnail_url : articleData.thumbnail,
         content : articleData.content 
       }),
       headers : {
