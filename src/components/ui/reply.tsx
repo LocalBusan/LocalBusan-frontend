@@ -75,9 +75,14 @@ export default function Reply({articleId}:ArticleProps) {
                                 <h3 className="text-lg font-bold">{reply.nickname}</h3>
                                 {reply.content}
                             </div>
-                            <div className="flex justify-end">
-                                <a onClick={()=>{onClickeDeleteButton(reply.reply_id)}} className="text-red-500 hover:underline hover:cursor-pointer">삭제</a>
-                            </div>
+
+                            {
+                                false
+                                &&(
+                                <div className="flex justify-end">
+                                    <a onClick={()=>{onClickeDeleteButton(reply.reply_id)}} className="text-red-500 hover:underline hover:cursor-pointer">삭제</a>
+                                </div>)
+                            }
                         </div>)
                     })
                 }
