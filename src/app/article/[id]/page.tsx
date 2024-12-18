@@ -21,7 +21,7 @@ export default async function Article({params}:{params:Promise<{id: string}>}) {
         <div className="flex flex-col items-center gap-y-3">
             <div className="w-[700px]">
                 <AspectRatio ratio={16 / 9}>
-                    <img src={fetchedJson.thumbnail_url} onError={({currentTarget})=>{currentTarget.src = '../alt_image.png'}} alt="Image" className="rounded-md object-cover"/>
+                    <img src={fetchedJson.thumbnail_url}  alt="Image" className="rounded-md object-cover"/>
                 </AspectRatio>
             </div>
             <div className="w-[700px]">
