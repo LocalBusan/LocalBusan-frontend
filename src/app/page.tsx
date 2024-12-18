@@ -150,8 +150,8 @@ export default function Home() {
         articleState.filter(selectCheck).map(({region,category,created_at,article_id, title ,subtitle, thumbnail_url} : any,index)=>{
           return(
           <Link key={index} href={`/article/${article_id}`} className="w-[300px] flex flex-col">
-              <AspectRatio ratio={16 / 9}>
-                  <img src={thumbnail_url} alt="Image" className="rounded-md object-cover" onError={({currentTarget})=>{currentTarget.src = './alt_image.png'}}/>
+              <AspectRatio ratio={16/9} className="flex justify-center">
+                  <img src={thumbnail_url} width="70%" alt="Image" className="rounded-md object-cover" onError={({currentTarget})=>{currentTarget.src = './alt_image.png'}}/>
               </AspectRatio>
               <div className="text-amber-800 font-bold">{category.category_name} in {region.region_name}</div>
               <h1 className="text-2xl font-bold" >{title}</h1>
