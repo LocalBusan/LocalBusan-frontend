@@ -30,10 +30,11 @@ export default function Page() {
             instruction : nowReplyText
         }),
         })
-        if (replyResponse.ok ) {
+        if (replyResponse.ok && clickCount > 0) {
             const responseJson = await replyResponse.json(); 
-            setReplyData([{nickname:'로컬부산 챗봇',content:responseJson.response},...replyDataArray,]);
+            setReplyData([...replyDataArray,{nickname:'나',content : nowReplyText},{nickname:'로컬부산 챗봇',content:responseJson.response}]);
         }
+        console.log(replyDataArray);
     }
     const [replyDataArray,setReplyData] = useState([]);
     const [nowReplyText, setReplyText] = useState('');
