@@ -102,7 +102,7 @@ export default function Home() {
   return (
     <>
     <div className="flex justify-end gap-x-3 h-10 px-8 items-center">
-        <Link href="/chat">챗봇</Link>
+        <Link href="http://localhost:3000/chat">챗봇</Link>
         <Link href="/editor">글쓰기</Link>
     </div>
     <div className="flex flex-col justify-center gap-y-10 items-center">
