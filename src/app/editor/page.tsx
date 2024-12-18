@@ -43,6 +43,7 @@ export default function Page() {
     setArticleData({...articleData, regionId:parseInt(value)});  
   }
   const onCategoryInputChange = (value : string) => {
+    console.log(value);
     setArticleData({...articleData, categoryId:parseInt(value)});  
   }
   const onTitleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -128,9 +129,9 @@ export default function Page() {
                 <SelectValue placeholder="맛집" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="0" defaultValue="0">맛집</SelectItem>
-                <SelectItem value="1" defaultValue="0">문화</SelectItem>
-                <SelectItem value="2" defaultValue="0">피플</SelectItem>
+                <SelectItem value="1" defaultValue="1">맛집</SelectItem>
+                <SelectItem value="2" defaultValue="1">문화</SelectItem>
+                <SelectItem value="3" defaultValue="1">피플</SelectItem>
               </SelectContent>
             </Select>
           </div>
