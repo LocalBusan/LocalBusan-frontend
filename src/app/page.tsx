@@ -15,16 +15,11 @@ const regionTextArray = [
   
 regionTextArray.unshift('전체');  
 
-
+// 메인 페이지 컴포넌트
 export default function Home() {
-  const requestArticles = async () => {
-    const response = await fetch('/api/boards', {
-      method : 'GET'
-    });
-    const fetchedJson = await (response.json());
-    setArticleState(fetchedJson);
-  }
+  // 서버로 부터 불러온 글 정보를 담고 있는 State 초기화
   const [articleState, setArticleState] = useState([]); 
+  // 지역 필터 값을 담고 있는 State 초기화
   const [regionState, setRegionState] = useState(
     regionTextArray.map((regionName,index)=>{
     return {
@@ -32,6 +27,7 @@ export default function Home() {
       isSelected : index === 0 ? true : false
     }
   })); 
+  // 카테고리 필터 값을 담고 있는 State 초기화
   const [categoryState, setCategoryState] = useState([{name :'맛집', emoji : '🍔'},{name : '문화', emoji : '🎫'},{name : '피플', emoji:'💬'}].map(
     ({name,emoji},index) => {
       return {
@@ -42,6 +38,16 @@ export default function Home() {
       }
     }
   ));
+  // 글의  정보를 HTTP API 요청을 통해 가져와서 글 정보 State에 저장
+  const requestArticles = async () => {
+    const response = await fetch('/api/boards', {
+      method : 'GET'
+    });
+    const fetchedJson = await (response.json());
+    setArticleState(fetchedJson);
+  }
+
+  // 카테고리 선택 필터를 클릭했을 때의 이벤트 핸들러 : 현재 카테고리 필터 State 변경
   const onCategorySelectClick = (e : React.MouseEvent<HTMLButtonElement>) => {
     const nextCategoryState = categoryState.map(
       ({value,isSelected,...rest}) => {
