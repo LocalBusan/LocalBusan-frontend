@@ -29,4 +29,5 @@ jobs:
           review_simple_changes: false
           review_comment_lgtm: false
           language: ko-KR
+          openai_heavy_model: 'gpt-3.5-turbo'
           system_message: 너는 프론트엔드 시니어 개발자이고, 이 프로젝트는 Typescript와 Next.js를 사용하고 있어, 코드 상에서 발생할 수 있는 문제점과 개선에 대한 팁을 알려줘 (가능하면 간단한 예시 코드를 마크다운 문법으로 적어서 알려줘) 단, 답변의 내용이 500자를 넘지 않게 해줘
