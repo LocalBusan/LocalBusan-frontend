@@ -17,7 +17,6 @@ regionTextArray.unshift('전체');
 
 // 메인 페이지 컴포넌트
 export default function Home() {
-  // 서버로 부터 불러온 글 정보를 담고 있는 State 초기화
   const [articleState, setArticleState] = useState([]); 
   // 지역 필터 값을 담고 있는 State 초기화
   const [regionState, setRegionState] = useState(
@@ -40,11 +39,17 @@ export default function Home() {
   ));
   // 글의  정보를 HTTP API 요청을 통해 가져와서 글 정보 State에 저장
   const requestArticles = async () => {
-    const response = await fetch('/api/boards', {
-      method : 'GET'
-    });
-    const fetchedJson = await (response.json());
-    setArticleState(fetchedJson);
+    try {
+      const response = await fetch('/api/boards', {
+        method : 'GET'
+      });
+      if (!response.ok) throw Error('HTTP Response was not OK.');
+      const fetchedJson = await (response.json());
+      setArticleState(fetchedJson);
+    }
+    catch (error){
+      console.error('글 정보 불러오기에서 에러발생 : ',error)
+    }
   }
 
   // 카테고리 선택 필터를 클릭했을 때의 이벤트 핸들러 : 현재 카테고리 필터 State 변경
@@ -157,7 +162,7 @@ export default function Home() {
           return(
           <Link key={index} href={`/article/${article_id}`} className="w-[300px] flex flex-col">
               <AspectRatio ratio={16/9} className="flex justify-center">
-                  <img src={thumbnail_url} width="70%" alt="Image" className="rounded-md object-cover" onError={({currentTarget})=>{currentTarget.src = './alt_image.png'}}/>
+                  <img src={thumbnail_url} width="100%" alt="Image" className="rounded-md object-cover" onError={({currentTarget})=>{currentTarget.src = './alt_image.png'}}/>
               </AspectRatio>
               <div className="text-amber-800 font-bold">{category.category_name} in {region.region_name}</div>
               <h1 className="text-2xl font-bold" >{title}</h1>
