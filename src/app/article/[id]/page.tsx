@@ -12,7 +12,7 @@ export default async function Article({params}:{params:Promise<{id: string}>}) {
         if (!response.ok) throw Error('HTTP Response was not OK.');
         const fetchedJson = await response.json();
         const isThumbnailResponseOk = (await fetch(fetchedJson.thumbnail_url)).ok;
-        if (isThumbnailResponseOk) fetchedJson.thumbnail_url = '/alt_image.png'
+        if (!isThumbnailResponseOk) fetchedJson.thumbnail_url = '/alt_image.png'
         return (
             <>
                 <div className="flex justify-end gap-x-3 h-10 px-8 items-center">
